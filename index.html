@@ -1126,6 +1126,7 @@ function buildOrderPayload() {
     .join("\n");
 
   return {
+    chave:        "restaurante2025",
     numeroPedido: String(orderCounter).padStart(6, "0"),
     nome:         getVal("fName"),
     telefone:     getVal("fPhone"),

@@ -3,9 +3,17 @@ const TELEGRAM_TOKEN = '8566709078:AAERwkWZ3nhpY0M9AQwcOkrzxrfinSfEq-8';
 const TELEGRAM_CHAT_ID = '962300263';
 const SPREADSHEET_ID = '1WzPzpSARxTiCCMkai9pH-Y0_BRTTre_Czy7nvMOmd5s';
 
+const CHAVE_SECRETA = 'restaurante2025';
+
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
+
+    if (data.chave !== CHAVE_SECRETA) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'error', message: 'Chave inválida.' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
     const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
 
@@ -69,6 +77,7 @@ ${data.pedido}
 // Rode esta função manualmente no editor para testar sem precisar do site
 function testar() {
   const dadosTeste = {
+    chave: 'restaurante2025',
     numeroPedido: '000001',
     nome: 'João Teste',
     telefone: '(11) 99999-9999',
